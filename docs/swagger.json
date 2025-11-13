@@ -1,52 +1,47 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {},
-        "license": {}
+        "contact": {}
     },
     "paths": {
-        "/demo/bind": {
+        "/admin_login/login": {
             "post": {
-                "description": "测试数据绑定",
+                "description": "管理员通过用户名和密码登录系统，成功后返回访问令牌",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "用户"
+                    "管理员接口"
                 ],
-                "summary": "测试数据绑定",
-                "operationId": "/demo/bind",
+                "summary": "管理员登录接口",
                 "parameters": [
                     {
-                        "description": "body",
-                        "name": "polygon",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.DemoInput"
-                        }
+                        "maxLength": 20,
+                        "minLength": 3,
+                        "type": "string",
+                        "description": "管理员用户名",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "maxLength": 20,
+                        "minLength": 6,
+                        "type": "string",
+                        "description": "管理员密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "success",
+                        "description": "登录成功",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/middleware.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/dto.DemoInput"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/dto.AdminLoginOutput"
                         }
                     }
                 }
@@ -54,45 +49,11 @@
         }
     },
     "definitions": {
-        "dto.DemoInput": {
-            "type": "object",
-            "required": [
-                "age",
-                "name",
-                "passwd"
-            ],
-            "properties": {
-                "age": {
-                    "type": "integer",
-                    "example": 20
-                },
-                "name": {
-                    "type": "string",
-                    "example": "姓名"
-                },
-                "passwd": {
-                    "type": "string",
-                    "example": "123456"
-                }
-            }
-        },
-        "middleware.Response": {
+        "dto.AdminLoginOutput": {
             "type": "object",
             "properties": {
-                "data": {
-                    "type": "object"
-                },
-                "errmsg": {
+                "token": {
                     "type": "string"
-                },
-                "errno": {
-                    "type": "integer"
-                },
-                "stack": {
-                    "type": "object"
-                },
-                "trace_id": {
-                    "type": "object"
                 }
             }
         }

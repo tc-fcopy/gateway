@@ -1,16 +1,15 @@
 package services
 
 import (
-	"github.com/e421083458/gin_scaffold/dao"
-	"github.com/e421083458/gin_scaffold/dto"
-	"github.com/e421083458/gin_scaffold/middleware"
+	"fcopy_gateway/dao"
+	"fcopy_gateway/dto"
+	"fcopy_gateway/middleware"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 )
 
 type ApiService struct {
 }
-
 
 func (as *ApiService) AddUser(c *gin.Context, input *dto.AddUserInput) error {
 	tx, err := lib.GetGormPool("default")

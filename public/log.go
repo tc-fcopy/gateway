@@ -8,9 +8,9 @@ import (
 
 //错误日志
 func ContextWarning(c context.Context, dltag string, m map[string]interface{}) {
-	v:=c.Value("trace")
-	traceContext,ok := v.(*lib.TraceContext)
-	if !ok{
+	v := c.Value("trace")
+	traceContext, ok := v.(*lib.TraceContext)
+	if !ok {
 		traceContext = lib.NewTrace()
 	}
 	lib.Log.TagWarn(traceContext, dltag, m)
@@ -18,19 +18,19 @@ func ContextWarning(c context.Context, dltag string, m map[string]interface{}) {
 
 //错误日志
 func ContextError(c context.Context, dltag string, m map[string]interface{}) {
-	v:=c.Value("trace")
-	traceContext,ok := v.(*lib.TraceContext)
-	if !ok{
+	v := c.Value("trace")
+	traceContext, ok := v.(*lib.TraceContext)
+	if !ok {
 		traceContext = lib.NewTrace()
 	}
 	lib.Log.TagError(traceContext, dltag, m)
 }
 
-//普通日志
+//普通日�?
 func ContextNotice(c context.Context, dltag string, m map[string]interface{}) {
-	v:=c.Value("trace")
-	traceContext,ok := v.(*lib.TraceContext)
-	if !ok{
+	v := c.Value("trace")
+	traceContext, ok := v.(*lib.TraceContext)
+	if !ok {
 		traceContext = lib.NewTrace()
 	}
 	lib.Log.TagInfo(traceContext, dltag, m)
@@ -42,13 +42,13 @@ func ComLogWarning(c *gin.Context, dltag string, m map[string]interface{}) {
 	lib.Log.TagError(traceContext, dltag, m)
 }
 
-//普通日志
+//普通日�?
 func ComLogNotice(c *gin.Context, dltag string, m map[string]interface{}) {
 	traceContext := GetGinTraceContext(c)
 	lib.Log.TagInfo(traceContext, dltag, m)
 }
 
-// 从gin的Context中获取数据
+// 从gin的Context中获取数�?
 func GetGinTraceContext(c *gin.Context) *lib.TraceContext {
 	// 防御
 	if c == nil {
@@ -63,12 +63,12 @@ func GetGinTraceContext(c *gin.Context) *lib.TraceContext {
 	return lib.NewTrace()
 }
 
-// 从Context中获取数据
+// 从Context中获取数�?
 func GetTraceContext(c context.Context) *lib.TraceContext {
 	if c == nil {
 		return lib.NewTrace()
 	}
-	traceContext:=c.Value("trace")
+	traceContext := c.Value("trace")
 	if tc, ok := traceContext.(*lib.TraceContext); ok {
 		return tc
 	}
