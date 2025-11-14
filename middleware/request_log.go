@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"bytes"
-	"fcopy_gateway/public"
+	"gateway/public"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"

@@ -1,15 +1,31 @@
 package main
 
 import (
-	"fcopy_gateway/router"
-	"github.com/e421083458/golang_common/lib"
+	"flag"
+	"gateway/golang_common/lib"
+	"gateway/router"
 	"os"
 	"os/signal"
 	"syscall"
 )
 
+var (
+	endpoint = flag.String("endpoint", "", "input endpoint dashboard or server")
+	config   = flag.String("config", "", "input config file like ./conf/dev/")
+)
+
 func main() {
-	lib.InitModule("./conf/dev/", []string{"base", "mysql", "redis"})
+	flag.Parse()
+	if *endpoint == "" {
+		flag.Usage()
+		os.Exit(1)
+	}
+	if *config == "" {
+		flag.Usage()
+		os.Exit(1)
+	}
+
+	lib.InitModule(*config)
 	defer lib.Destroy()
 	router.HttpServerRun()
 

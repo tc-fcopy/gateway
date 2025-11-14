@@ -6,7 +6,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
-	dlog "github.com/e421083458/go_gateway/golang_common/log"
+	dlog "gateway/golang_common/log"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -61,10 +61,10 @@ func initModule(configPath string, modules []string) error {
 		}
 	}
 
-	// 加载redis配置
+	// 加载redis配置并初始化连接池
 	if InArrayString("redis", modules) {
-		if err := InitRedisConf(GetConfPath("redis_map")); err != nil {
-			fmt.Printf("[ERROR] %s%s\n", time.Now().Format(TimeFormat), " InitRedisConf:"+err.Error())
+		if err := InitRedisPool(GetConfPath("redis_map")); err != nil {
+			fmt.Printf("[ERROR] %s%s\n", time.Now().Format(TimeFormat), " InitRedisPool:"+err.Error())
 		}
 	}
 
@@ -92,6 +92,7 @@ func Destroy() {
 	log.Println("------------------------------------------------------------------------")
 	log.Printf("[INFO] %s\n", " start destroy resources.")
 	CloseDB()
+	CloseRedis()
 	dlog.Close()
 	log.Printf("[INFO] %s\n", " success destroy resources.")
 }

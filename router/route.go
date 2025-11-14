@@ -1,10 +1,10 @@
 package router
 
 import (
-	"fcopy_gateway/controller"
-	"fcopy_gateway/docs"
-	"fcopy_gateway/middleware"
-	"github.com/e421083458/golang_common/lib"
+	"gateway/controller"
+	"gateway/docs"
+	"gateway/golang_common/lib"
+	"gateway/middleware"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/files"

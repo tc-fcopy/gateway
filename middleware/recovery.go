@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"errors"
-	"fcopy_gateway/public"
 	"fmt"
+	"gateway/public"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"runtime/debug"

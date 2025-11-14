@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"fcopy_gateway/dto"
+	"gateway/dto"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"time"
@@ -14,7 +14,7 @@ type ServiceInfo struct {
 	ServiceDesc string    `json:"service_desc" gorm:"column:service_desc" description:"服务描述"`
 	UpdatedAt   time.Time `json:"create_at" gorm:"column:create_at" description:"更新时间"`
 	CreatedAt   time.Time `json:"update_at" gorm:"column:update_at" description:"添加时间"`
-	IsDelete    int8      `json:"is_delete" gorm:"column:is_delete" description:"是否已删除；0：否�?：是"`
+	IsDelete    int8      `json:"is_delete" gorm:"column:is_delete" description:"是否已删除；0：否�?：是"`
 }
 
 func (t *ServiceInfo) TableName() string {
@@ -64,12 +64,18 @@ func (t *ServiceInfo) ServiceDetail(c *gin.Context, tx *gorm.DB, search *Service
 		return nil, err
 	}
 
+	accessControl := &AccessControl{ServiceID: search.ID}
+	accessControl, err = accessControl.Find(c, tx, accessControl)
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
 	detail := &ServiceDetail{
 		Info:          search,
 		HTTPRule:      httpRule,
 		TCPRule:       tcpRule,
 		GRPCRule:      grpcRule,
-		LoadBalance:   loadBalance,
+		LoadBalance:   loadBlance,
 		AccessControl: accessControl,
 	}
 	return detail, nil

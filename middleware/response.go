@@ -10,7 +10,7 @@ import (
 
 type ResponseCode int
 
-//1000以下为通用码，1000以上为用户自定义�?
+//1000以下为通用码，1000以上为用户自定义码
 const (
 	SuccessCode ResponseCode = iota
 	UndefErrorCode

@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"errors"
-	"fcopy_gateway/public"
+	"gateway/public"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )

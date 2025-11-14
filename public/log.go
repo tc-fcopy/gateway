@@ -2,11 +2,11 @@ package public
 
 import (
 	"context"
-	"github.com/e421083458/golang_common/lib"
+	"gateway/golang_common/lib"
 	"github.com/gin-gonic/gin"
 )
 
-//错误日志
+// 错误日志
 func ContextWarning(c context.Context, dltag string, m map[string]interface{}) {
 	v := c.Value("trace")
 	traceContext, ok := v.(*lib.TraceContext)
@@ -16,7 +16,7 @@ func ContextWarning(c context.Context, dltag string, m map[string]interface{}) {
 	lib.Log.TagWarn(traceContext, dltag, m)
 }
 
-//错误日志
+// 错误日志
 func ContextError(c context.Context, dltag string, m map[string]interface{}) {
 	v := c.Value("trace")
 	traceContext, ok := v.(*lib.TraceContext)
@@ -26,7 +26,7 @@ func ContextError(c context.Context, dltag string, m map[string]interface{}) {
 	lib.Log.TagError(traceContext, dltag, m)
 }
 
-//普通日�?
+// 普通日�?
 func ContextNotice(c context.Context, dltag string, m map[string]interface{}) {
 	v := c.Value("trace")
 	traceContext, ok := v.(*lib.TraceContext)
@@ -36,13 +36,13 @@ func ContextNotice(c context.Context, dltag string, m map[string]interface{}) {
 	lib.Log.TagInfo(traceContext, dltag, m)
 }
 
-//错误日志
+// 错误日志
 func ComLogWarning(c *gin.Context, dltag string, m map[string]interface{}) {
 	traceContext := GetGinTraceContext(c)
 	lib.Log.TagError(traceContext, dltag, m)
 }
 
-//普通日�?
+// 普通日�?
 func ComLogNotice(c *gin.Context, dltag string, m map[string]interface{}) {
 	traceContext := GetGinTraceContext(c)
 	lib.Log.TagInfo(traceContext, dltag, m)

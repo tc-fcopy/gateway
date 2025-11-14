@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"fcopy_gateway/public"
+	"gateway/public"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/locales/en"
 	"github.com/go-playground/locales/zh"
@@ -43,7 +43,7 @@ func TranslationMiddleware() gin.HandlerFunc {
 				return fld.Tag.Get("comment")
 			})
 
-			//自定义验证方�?			//https://github.com/go-playground/validator/blob/v9/_examples/custom-validation/main.go
+			//自定义验证方�?			//https://github.com/go-playground/validator/blob/v9/_examples/custom-validation/main.go
 			val.RegisterValidation("is_validate_username", func(fl validator.FieldLevel) bool {
 				return fl.Field().String() == "admin"
 			})

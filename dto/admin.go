@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"fcopy_gateway/public"
+	"gateway/public"
 	"github.com/gin-gonic/gin"
 	"time"
 )

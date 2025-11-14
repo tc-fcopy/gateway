@@ -3,10 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"errors"
-	"fcopy_gateway/dao"
-	"fcopy_gateway/dto"
-	"fcopy_gateway/middleware"
-	"fcopy_gateway/public"
+	"gateway/dao"
+	"gateway/dto"
+	"gateway/golang_common/lib"
+	"gateway/middleware"
+	"gateway/public"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -68,7 +69,7 @@ func (adm *AdminController) AdminChangePwd(c *gin.Context) {
 		return
 	}
 
-	// 2. 查询数据库中的用户信�?
+	// 2. 查询数据库中的用户信息
 	tx, err := lib.GetGormPool("default")
 	if err != nil {
 		middleware.ResponseError(c, 2001, err)

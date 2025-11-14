@@ -1,9 +1,9 @@
 package services
 
 import (
-	"fcopy_gateway/dao"
-	"fcopy_gateway/dto"
-	"fcopy_gateway/middleware"
+	"gateway/dao"
+	"gateway/dto"
+	"gateway/middleware"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 )

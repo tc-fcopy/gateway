@@ -2,11 +2,11 @@ package controller
 
 import (
 	"fmt"
-	"fcopy_gateway/dao"
-	"fcopy_gateway/dto"
-	"fcopy_gateway/middleware"
-	"github.com/e421083458/go_gateway/public"
-	"github.com/e421083458/golang_common/lib"
+	"gateway/dao"
+	"gateway/dto"
+	"gateway/golang_common/lib"
+	"gateway/middleware"
+	"gateway/public"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,14 +32,16 @@ func (service *ServiceController) ServiceList(c *gin.Context) {
 		return
 	}
 
-	//从db中分页读取基本信�?	serviceInfo := &dao.ServiceInfo{}
+	//从db中分页读取基本信
+	serviceInfo := &dao.ServiceInfo{}
 	list, total, err := serviceInfo.PageList(c, tx, params)
 	if err != nil {
 		middleware.ResponseError(c, 2002, err)
 		return
 	}
 
-	//格式化输出信�?	outList := []dto.ServiceListItemOutput{}
+	//格式化输出信
+	outList := []dto.ServiceListItemOutput{}
 	for _, listItem := range list {
 		serviceDetail, err := listItem.ServiceDetail(c, tx, &listItem)
 		if err != nil {

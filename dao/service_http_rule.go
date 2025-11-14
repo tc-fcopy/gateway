@@ -13,8 +13,8 @@ type HttpRule struct {
 	NeedHttps      int    `json:"need_https" gorm:"column:need_https" description:"type=支持https 1=支持"`
 	NeedWebsocket  int    `json:"need_websocket" gorm:"column:need_websocket" description:"启用websocket 1=启用"`
 	NeedStripUri   int    `json:"need_strip_uri" gorm:"column:need_strip_uri" description:"启用strip_uri 1=启用"`
-	UrlRewrite     string `json:"url_rewrite" gorm:"column:url_rewrite" description:"url重写功能，每行一�?"`
-	HeaderTransfor string `json:"header_transfor" gorm:"column:header_transfor" description:"header转换支持增加(add)、删�?del)、修�?edit) 格式: add headname headvalue	"`
+	UrlRewrite     string `json:"url_rewrite" gorm:"column:url_rewrite" description:"url重写功能"`
+	HeaderTransfor string `json:"header_transfor" gorm:"column:header_transfor" description:"header转换支持增加(add)、删�?del)、修�?edit) 格式: add headname headvalue"`
 }
 
 func (t *HttpRule) TableName() string {

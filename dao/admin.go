@@ -2,8 +2,8 @@ package dao
 
 import (
 	"errors"
-	"fcopy_gateway/dto"
-	"fcopy_gateway/public"
+	"gateway/dto"
+	"gateway/public"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"time"
@@ -11,8 +11,8 @@ import (
 
 type Admin struct {
 	ID        int64     `json:"id" gorm:"primaryKey;autoIncrement;column:id;comment:自增主键"`
-	UserName  string    `json:"user_name" gorm:"column:user_name;type:varchar(255);not null;default:'';comment:用户�?`
-	Salt      string    `json:"salt" gorm:"column:salt;type:varchar(50);not null;default:'';comment:盐�?`
+	UserName  string    `json:"user_name" gorm:"column:user_name;type:varchar(255);not null;default:'';comment:用户"`
+	Salt      string    `json:"salt" gorm:"column:salt;type:varchar(50);not null;default:'';comment:盐"`
 	Password  string    `json:"password" gorm:"column:password;type:varchar(255);not null;default:'';comment:加密密码"`
 	CreatedAt time.Time `json:"create_at" gorm:"column:create_at;type:datetime;not null;default:'1971-01-01 00:00:00';comment:创建时间"`
 	UpdatedAt time.Time `json:"update_at" gorm:"column:update_at;type:datetime;not null;default:'1971-01-01 00:00:00';comment:更新时间"`
@@ -28,7 +28,7 @@ func (t *Admin) LoginCheck(c *gin.Context, tx *gorm.DB, param *dto.AdminLoginInp
 		UserName: param.Username,
 		IsDelete: 0})
 	if err != nil {
-		return nil, errors.New("用户信息不存�?)
+		return nil, errors.New("用户信息不存在")
 	}
 	saltPassword := public.GenSaltPassword(adminInfo.Salt, param.Password)
 	if adminInfo.Password != saltPassword {

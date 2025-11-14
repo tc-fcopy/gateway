@@ -1,13 +1,13 @@
-﻿package controller
+package controller
 
 import (
 	"encoding/json"
 	"errors"
-	"fcopy_gateway/dao"
-	"fcopy_gateway/dto"
-	"fcopy_gateway/middleware"
-	"fcopy_gateway/public"
-	"github.com/e421083458/golang_common/lib"
+	"gateway/dao"
+	"gateway/dto"
+	"gateway/golang_common/lib"
+	"gateway/middleware"
+	"gateway/public"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"time"
@@ -28,7 +28,7 @@ func (admlog *AdminLoginController) AdminLogin(c *gin.Context) {
 		middleware.ResponseError(c, 2000, err)
 		return
 	}
-	// 1. 取得管理员信�?	// 2. admin.salt + params.password sha256 => saltPassword
+	// 1. 取得管理员信�?	// 2. admin.salt + params.password sha256 => saltPassword
 	// 3. saltoassword == admininfo.password
 	admin := &dao.Admin{}
 	tx, err := lib.GetGormPool("default")

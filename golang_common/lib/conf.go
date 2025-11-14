@@ -3,8 +3,8 @@ package lib
 import (
 	"bytes"
 	"database/sql"
+	dlog "gateway/golang_common/log"
 	"github.com/spf13/viper"
-	dlog "github.com/tc-fcopy/"
 	"gorm.io/gorm"
 	"io/ioutil"
 	"os"
@@ -64,6 +64,9 @@ type RedisConf struct {
 	ConnTimeout  int      `mapstructure:"conn_timeout"`
 	ReadTimeout  int      `mapstructure:"read_timeout"`
 	WriteTimeout int      `mapstructure:"write_timeout"`
+	MaxActive    int      `mapstructure:"max_active"`
+	MaxIdle      int      `mapstructure:"max_idle"`
+	IdleTimeout  int      `mapstructure:"idle_timeout"`
 }
 
 // 全局变量
