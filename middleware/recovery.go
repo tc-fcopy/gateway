@@ -3,8 +3,8 @@ package middleware
 import (
 	"errors"
 	"fmt"
+	"gateway/golang_common/lib"
 	"gateway/public"
-	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"runtime/debug"
 )
@@ -14,7 +14,7 @@ func RecoveryMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				//先做一下日志记�?
+				//先做一下日志
 				fmt.Println(string(debug.Stack()))
 				public.ComLogNotice(c, "_com_panic", map[string]interface{}{
 					"error": fmt.Sprint(err),

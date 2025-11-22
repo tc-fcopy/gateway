@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
+	"gateway/dao"
 	"gateway/golang_common/lib"
+	"gateway/http_proxy_router"
 	"gateway/router"
 	"os"
 	"os/signal"
@@ -25,13 +27,42 @@ func main() {
 		os.Exit(1)
 	}
 
-	lib.InitModule(*config)
-	defer lib.Destroy()
-	router.HttpServerRun()
+	if *endpoint == "dashboard" {
+		lib.InitModule(*config)
+		defer lib.Destroy()
+		router.HttpServerRun()
 
-	quit := make(chan os.Signal)
-	signal.Notify(quit, syscall.SIGKILL, syscall.SIGQUIT, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
+		quit := make(chan os.Signal)
+		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+		<-quit
 
-	router.HttpServerStop()
+		router.HttpServerStop()
+	} else {
+		lib.InitModule(*config)
+		defer lib.Destroy()
+		dao.ServiceManagerHandler.LoadOnce()
+		dao.AppManagerHandler.LoadOnce()
+
+		go func() {
+			http_proxy_router.HttpServerRun()
+		}()
+		//go func() {
+		//	http_proxy_router.HttpsServerRun()
+		//}()
+		//go func() {
+		//	tcp_proxy_router.TcpServerRun()
+		//}()
+		//go func() {
+		//	grpc_proxy_router.GrpcServerRun()
+		//}()
+
+		quit := make(chan os.Signal)
+		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+		<-quit
+		//
+		//tcp_proxy_router.TcpServerStop()
+		//grpc_proxy_router.GrpcServerStop()
+		http_proxy_router.HttpServerStop()
+		//http_proxy_router.HttpsServerStop()
+	}
 }

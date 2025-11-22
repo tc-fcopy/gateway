@@ -1,6 +1,7 @@
 package public
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -56,4 +57,5 @@ func (fc *FlowCounter) Increase() {
 		fc.lastCount = fc.TotalCount
 		fc.lastTime = now
 	}
+	fmt.Println(fc.QPS)
 }

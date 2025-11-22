@@ -13,7 +13,7 @@ type AdminSessionInfo struct {
 }
 
 type AdminLoginInput struct {
-	Username string `json:"username" form:"username" comment:"管理员用户名" validate:"required,is_validate_username"`
+	Username string `json:"username" form:"username" comment:"管理员用户名" validate:"required,valid_username"`
 	Password string `json:"password" form:"password" comment:"密码" validate:"required"`
 }
 
